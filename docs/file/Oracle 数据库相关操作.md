@@ -53,3 +53,31 @@ impdp nc65/nc65@test directory=backup dumpfile=BACKUP.dmp schemas=nc65  logfile=
 如果导入导出用户不一致，要加上'remap_schema=导出用户：导入用户'
 ```
 
+### 覆盖导入
+
+```sql
+---- 提前创建导入目录
+create directory XX as 'E:\XX';
+-----覆盖导入
+impdp user/password directory=dump_dir dumpfile=GZBACKUP.dmp  full=y logfile=backup.log table_exists_action=replace
+```
+
+##  导出指定表
+
+
+
+```sql
+---- 提前创建导入目录
+create directory XX as 'E:\XX';
+
+expdp  user/passwod tables=bd_accassitem,bd_accchart,bd_account,bd_cust_supplier,BD_VOUCHERTYPE,gl_balance,org_adminorg,gl_detail,BD_ACCASOA,sm_user,org_accountingbook,gl_voucher,gl_freevalue directory=gz_dumps dumpfile=backup.dmp  logfile=backup.log 
+```
+
+
+
+##  修改密码有效期
+
+```sql
+ALTER PROFILE DEFAULT LIMIT PASSWORD_LIFE_TIME UNLIMITED;
+```
+
